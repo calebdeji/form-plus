@@ -10,9 +10,14 @@ const black100 = '#000000';
 const black200 = '#3F3F3F';
 const black300 = '#333447';
 
+const orange300 = '#FFF4EA';
+
+const fadedBlack = 'rgba(179, 171, 171, 0.1)';
+
 //custom name colors
 const neutral2 = '#3F3E3E';
 const neutral5 = '#C4C4C4';
+const neutral7 = '#F9F9F9';
 const shade6 = '#08BD37';
 
 const colors: { [key: string]: string } = {
@@ -24,8 +29,11 @@ const colors: { [key: string]: string } = {
 	black300,
 	neutral2,
 	neutral5,
+	neutral7,
 	shade6,
 	white100,
+	orange300,
+	fadedBlack,
 };
 
 export default colors;

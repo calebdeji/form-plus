@@ -15,6 +15,7 @@ interface SelectProps {
 	options: Array<SelectOptions>;
 	value?: string;
 	onChange?: (value: string) => void;
+	className?: string;
 }
 
 const Select = (props: SelectProps) => {
@@ -34,7 +35,7 @@ const Select = (props: SelectProps) => {
 		}
 		const optionsAsLabel = mapKeys(props.options, 'value');
 		return optionsAsLabel[props.value || props.options[0].value]?.label;
-	}, [props.value]);
+	}, [props.value, props.options]);
 
 	const handleOnClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, value: string) => {
 		event.stopPropagation();
@@ -43,7 +44,7 @@ const Select = (props: SelectProps) => {
 	};
 
 	return (
-		<SelectStyles.Select onClick={toggleDropDown} tabIndex={-1}>
+		<SelectStyles.Select className={props.className} onClick={toggleDropDown} tabIndex={-1}>
 			{props.label && (
 				<Text as="legend" color="gray100" size={10}>
 					{props.label}
@@ -51,7 +52,7 @@ const Select = (props: SelectProps) => {
 			)}
 
 			<SelectStyles.SelectedField>
-				<Text> {getLabel()} </Text>
+				<Text color="black200"> {getLabel()} </Text>
 				<DropDownIcon className={`icon ${isDropDownVisible ? 'icon-reversed' : 'icon-normal'}`} />
 			</SelectStyles.SelectedField>
 
