@@ -4,8 +4,6 @@ import HomeHeader from './components/Header';
 import Template from './components/Template';
 import Footer from './components/Footer';
 
-interface HomeContextProps {}
-
 const HomeContext = createContext({});
 
 const Home = () => {

@@ -1,5 +1,4 @@
-import styled from '@emotion/styled/macro';
-import SelectStyles from 'app/components/Select/styles';
+import styled from '@emotion/styled';
 
 const Container = styled.header`
 	display: flex;
