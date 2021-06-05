@@ -25,8 +25,11 @@ const getFilteredDataByQueryAndCategory = (
 	let filteredBySearchWord: Array<Template> = [];
 	let totalEntries: number = 0;
 
+	console.log({ category });
+
 	const pushDataToFilteredList = (data: Template) => {
 		if (filteredBySearchWord.length !== MAXIMUM_PAGINATION_DATA_AT_ONCE) {
+			console.log('push a');
 			filteredBySearchWord.push(data);
 		}
 		totalEntries = totalEntries + 1;
@@ -57,6 +60,7 @@ const getFilteredDataByQueryAndCategory = (
 	}
 
 	return new Promise((resolve) => {
+		console.log({ filteredBySearchWord });
 		resolve({
 			data: filteredBySearchWord,
 			totalEntries,

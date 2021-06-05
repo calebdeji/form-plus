@@ -23,9 +23,9 @@ const HomeHeader = () => {
 					label="Category"
 					options={[
 						{ value: 'all', label: 'All' },
-						{ value: 'education', label: 'Education' },
-						{ value: 'e-commerce', label: 'E-commerce' },
-						{ value: 'health', label: 'Health' },
+						{ value: 'Education', label: 'Education' },
+						{ value: 'E-commerce', label: 'E-commerce' },
+						{ value: 'Health', label: 'Health' },
 					]}
 					value={contentContext?.category as string}
 					onChange={(value) => contentContext?.handleChangeInCategory?.(value as TemplateCategory)}
