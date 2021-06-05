@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import ClickAwayListener from 'react-click-away-listener';
 
 import Text from '../Text';
 import SelectStyles from './styles';
@@ -44,36 +45,38 @@ const Select = (props: SelectProps) => {
 	};
 
 	return (
-		<SelectStyles.Select className={props.className || ''} onClick={toggleDropDown} tabIndex={-1}>
-			{props.label && (
-				<Text as="legend" color="gray100" size={10}>
-					{props.label}
-				</Text>
-			)}
+		<ClickAwayListener onClickAway={closeDropDown}>
+			<SelectStyles.Select className={props.className || ''} onClick={toggleDropDown} tabIndex={-1}>
+				{props.label && (
+					<Text as="legend" color="gray100" size={10}>
+						{props.label}
+					</Text>
+				)}
 
-			<SelectStyles.SelectedField>
-				<Text color="black200"> {getLabel()} </Text>
-				<DropDownIcon className={`icon ${isDropDownVisible ? 'icon-reversed' : 'icon-normal'}`} />
-			</SelectStyles.SelectedField>
+				<SelectStyles.SelectedField>
+					<Text color="black200"> {getLabel()} </Text>
+					<DropDownIcon className={`icon ${isDropDownVisible ? 'icon-reversed' : 'icon-normal'}`} />
+				</SelectStyles.SelectedField>
 
-			{isDropDownVisible && (
-				<SelectStyles.SelectDropDown>
-					{props.options.map((item) => {
-						return (
-							<SelectStyles.SelectDropDownItem
-								tabIndex={-1}
-								key={`${item.label}-${item.value}`}
-								onClick={(event) => {
-									handleOnClick(event, item.value);
-								}}
-							>
-								<Text> {item.label}</Text>
-							</SelectStyles.SelectDropDownItem>
-						);
-					})}
-				</SelectStyles.SelectDropDown>
-			)}
-		</SelectStyles.Select>
+				{isDropDownVisible && (
+					<SelectStyles.SelectDropDown>
+						{props.options.map((item) => {
+							return (
+								<SelectStyles.SelectDropDownItem
+									tabIndex={-1}
+									key={`${item.label}-${item.value}`}
+									onClick={(event) => {
+										handleOnClick(event, item.value);
+									}}
+								>
+									<Text> {item.label}</Text>
+								</SelectStyles.SelectDropDownItem>
+							);
+						})}
+					</SelectStyles.SelectDropDown>
+				)}
+			</SelectStyles.Select>
+		</ClickAwayListener>
 	);
 };
 
