@@ -10,7 +10,7 @@ import { getTotalPages } from 'app/utils/helpers';
 const Footer = () => {
 	const contentContext = useContext(ContentContext);
 	const pagination = useSelector((state: RootState) => state.contentReducer.pagination);
-	console.log({ pagination });
+
 	return (
 		<FooterStyles.Container>
 			<FooterStyles.NavigationButton onClick={() => contentContext?.handlePrevious()}>
