@@ -1,6 +1,9 @@
 import TemplateStyles from './styles';
 import Text from 'app/components/Text';
 import Card from 'app/components/Card';
+import { useSelector } from 'react-redux';
+import { RootState } from 'app/redux/reducers';
+import { extractDescription, isReducerBusy } from 'app/utils/helpers';
 
 const card: Array<{
 	title: String;
@@ -93,7 +96,26 @@ const card: Array<{
 	},
 ];
 
+const LoadingTemplate = () => {
+	return (
+		<>
+			{card.map(({ title, description }, index) => {
+				return (
+					<Card key={`${index}-${title}-${description}`}>
+						<TemplateStyles.TemplateCardLoading>
+							<div className="upper"></div>
+							<div className="lower"></div>
+						</TemplateStyles.TemplateCardLoading>
+					</Card>
+				);
+			})}
+		</>
+	);
+};
+
 const Template = () => {
+	const { status, filteredData, pagination } = useSelector((state: RootState) => state.contentReducer);
+
 	return (
 		<TemplateStyles.Container>
 			<TemplateStyles.TemplateCategoryAndNumber>
@@ -101,32 +123,23 @@ const Template = () => {
 					All Templates
 				</Text>
 				<Text color="gray200" size={14}>
-					2000 templates
+					{pagination.total_entries || ''} templates
 				</Text>
 			</TemplateStyles.TemplateCategoryAndNumber>
 			<TemplateStyles.TemplateCardCollections>
-				{card.map(({ title, description }, index) => {
-					return (
-						<Card key={`${index}-${title}-${description}`}>
-							<TemplateStyles.TemplateCardLoading>
-								<div className="upper"></div>
-								<div className="lower"></div>
-							</TemplateStyles.TemplateCardLoading>
-						</Card>
-					);
-				})}
-
-				{/* {
-					card.map(({ title, description }, index) => {
+				{isReducerBusy(status) ? (
+					<LoadingTemplate />
+				) : (
+					filteredData.map(({ name, description }, index) => {
 						return (
-							<Card key={`${index}-${title}-${description}`}>
+							<Card key={`${index}-${name}-${description}`}>
 								<TemplateStyles.TemplateCard>
 									<div className="upper">
 										<Text color="black300" size={24} lineHeight={30.36} weight={500}>
-											{title}
+											{name}
 										</Text>
-										<Text color="neutral2" lineHeight={16.94}>
-											{description}
+										<Text className="description" color="neutral2" lineHeight={16.94}>
+											{extractDescription(description)}
 										</Text>
 									</div>
 									<div className="lower">
@@ -136,7 +149,7 @@ const Template = () => {
 							</Card>
 						);
 					})
-				} */}
+				)}
 			</TemplateStyles.TemplateCardCollections>
 		</TemplateStyles.Container>
 	);

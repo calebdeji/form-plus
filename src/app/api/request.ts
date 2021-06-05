@@ -1,24 +1,18 @@
-class API {
-	private baseURL = '';
-	private header: RequestInit['headers'] = {
-		'Content-type': 'application/json',
+import axios, { AxiosRequestConfig } from 'axios';
+
+const request = axios.create({
+	baseURL: process.env.REACT_APP_BASE_ENDPOINT_URL || '',
+});
+
+request.interceptors.request.use((config) => {
+	const newConfig = { ...config } as AxiosRequestConfig;
+
+	newConfig.headers = {
+		...newConfig.headers,
+		'Content-type': 'application/x-www-form-urlencoded',
 	};
-	private getHeaders(options: RequestInit['headers']) {
-		return {
-			...this.header,
-			...options,
-		};
-	}
 
-	post(url = '', options: RequestInit) {
-		return window.fetch(`${this.baseURL}/${url}`, { headers: this.getHeaders(options.headers), ...options });
-	}
-
-	get(url = '/', options: RequestInit) {
-		return window.fetch(`${this.baseURL}/${url}`, { headers: this.getHeaders(options.headers), ...options });
-	}
-}
-
-const request = new API();
+	return newConfig;
+});
 
 export default request;

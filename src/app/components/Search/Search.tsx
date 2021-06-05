@@ -1,8 +1,8 @@
-import { HTMLAttributes } from 'react';
+import { InputHTMLAttributes } from 'react';
 import { ReactComponent as SVGIcon } from 'app/assets/icons/search.svg';
 import SearchStyle from './styles';
 
-interface SearchProps extends HTMLAttributes<HTMLInputElement> {}
+interface SearchProps extends InputHTMLAttributes<HTMLInputElement> {}
 
 const Search = (props: SearchProps) => {
 	return (

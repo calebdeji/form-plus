@@ -1,7 +1,11 @@
 import { combineReducers } from 'redux';
 import { GenericAction } from './types';
 
-const AppReducer = combineReducers({});
+import contentReducer from './contents/reducer';
+
+const AppReducer = combineReducers({
+	contentReducer,
+});
 
 export type RootState = ReturnType<typeof AppReducer>;
 
