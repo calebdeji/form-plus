@@ -4,6 +4,8 @@ import { GenericResponse } from './types';
 
 const fetchAllContents = async () => {
 	// return await request.get('');
+	//TODO	use the normal request to get data from the endpoint
+	//the below method is used to save MB
 	return await new Promise((resolve, reject) => {
 		setTimeout(() => {
 			const response: GenericResponse<any> = {
