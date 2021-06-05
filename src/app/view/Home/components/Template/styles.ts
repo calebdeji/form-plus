@@ -14,10 +14,21 @@ const TemplateCategoryAndNumber = styled.div`
 `;
 
 const TemplateCard = styled.div`
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+
 	.upper {
-		padding: 19px 22px 41px 19px;
+		padding: 19px 22px 0 19px;
 		display: grid;
 		row-gap: 17px;
+		flex: 1;
+
+		.description {
+			box-sizing: content-box;
+			height: 51px;
+			padding: 17px 0 41px;
+		}
 	}
 	.lower {
 		padding: 12px 5px 11px 19px;

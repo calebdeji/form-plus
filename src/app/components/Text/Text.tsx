@@ -8,6 +8,7 @@ export interface TextProps {
 	color?: string;
 	align?: 'center' | 'left' | 'right';
 	lineHeight?: number;
+	className?: string;
 }
 
 const Text: FC<TextProps> = ({ children, ...others }) => {
