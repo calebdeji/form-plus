@@ -15,7 +15,7 @@ function* fetchAllContentsSaga() {
 		yield put({ type: FETCH_ALL_CONTENTS.fulfilled, payload: { ...filteredData, data: data.data } });
 	} catch (error) {
 		const message = error.message;
-		console.log(`omo error ${error.message}`);
+		console.warn(`Error ${message}`);
 
 		yield put({ type: FETCH_ALL_CONTENTS.error, payload: message });
 	}
@@ -30,7 +30,7 @@ function* fetchContentsByFilter(action: any) {
 	} catch (error) {
 		const message = 'Oops, something happened';
 
-		console.log(`omo error ${error.message}`);
+		console.warn(`Error ${message}`);
 
 		yield put({ type: FETCH_CONTENTS_BY_FILTER.error, payload: message });
 	}

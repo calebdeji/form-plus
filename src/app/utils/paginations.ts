@@ -124,8 +124,6 @@ export const getFilteredData = async ({
 		last_index: lastIndex,
 	};
 
-	console.log({ filteredListByDate });
-
 	return {
 		filteredData: filteredListByDate,
 		pagination: paginationData,

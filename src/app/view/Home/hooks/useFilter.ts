@@ -82,12 +82,6 @@ const useFilter = () => {
 				})
 			);
 		} else {
-			console.log({
-				parameters: {
-					...filters,
-					data,
-				},
-			});
 			dispatch(
 				fetchContentsByFilter({
 					...filters,
