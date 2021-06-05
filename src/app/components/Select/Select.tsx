@@ -44,7 +44,7 @@ const Select = (props: SelectProps) => {
 	};
 
 	return (
-		<SelectStyles.Select className={props.className} onClick={toggleDropDown} tabIndex={-1}>
+		<SelectStyles.Select className={props.className || ''} onClick={toggleDropDown} tabIndex={-1}>
 			{props.label && (
 				<Text as="legend" color="gray100" size={10}>
 					{props.label}
