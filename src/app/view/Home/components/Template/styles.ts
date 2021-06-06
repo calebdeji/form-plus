@@ -11,6 +11,10 @@ const TemplateCategoryAndNumber = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+
+	.category-text {
+		text-transform: capitalize;
+	}
 `;
 
 const TemplateCard = styled.div`

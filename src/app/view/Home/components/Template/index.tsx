@@ -1,9 +1,11 @@
+import { useContext } from 'react';
 import TemplateStyles from './styles';
 import Text from 'app/components/Text';
 import Card from 'app/components/Card';
 import { useSelector } from 'react-redux';
 import { RootState } from 'app/redux/reducers';
 import { extractDescription, isReducerBusy } from 'app/utils/helpers';
+import { ContentContext } from '../../providers/ContentProvider';
 
 const card: Array<{
 	title: String;
@@ -115,12 +117,13 @@ const LoadingTemplate = () => {
 
 const Template = () => {
 	const { status, filteredData, pagination } = useSelector((state: RootState) => state.contentReducer);
+	const contentContext = useContext(ContentContext);
 
 	return (
 		<TemplateStyles.Container>
 			<TemplateStyles.TemplateCategoryAndNumber>
-				<Text color="neutral2" size={18} lineHeight={23}>
-					All Templates
+				<Text color="neutral2" size={18} lineHeight={23} className="category-text">
+					{contentContext?.category || 'All'} Templates
 				</Text>
 				<Text color="gray200" size={14}>
 					{pagination.total_entries || ''} templates

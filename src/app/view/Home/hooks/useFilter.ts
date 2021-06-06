@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState, ChangeEvent } from 'react';
+import { useEffect, useState, ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { TemplateCategory, TemplateDate, TemplateOrder } from 'app/api/types';
 import useComponentDidMount from 'app/hooks/useComponentDidMount';
 import { fetchAllContents, fetchContentsByFilter } from 'app/redux/contents/actions';
 import { RootState } from 'app/redux/reducers';
-import { GetFilteredDataParams, MAXIMUM_PAGINATION_DATA_AT_ONCE } from 'app/utils/paginations';
+import { GetFilteredDataParams } from 'app/utils/pagination';
 
 export type Filters = Omit<GetFilteredDataParams, 'data' | 'currentIndex' | 'totalEntries'> & {
 	query: string;
@@ -23,9 +23,8 @@ const initialFilters: Filters = {
 
 const useFilter = () => {
 	const [filters, setFilters] = useState<Filters>(initialFilters);
-	const initialQuery = useRef(filters.query);
 
-	const { pagination, data } = useSelector((state: RootState) => state.contentReducer);
+	const { pagination } = useSelector((state: RootState) => state.contentReducer);
 	const dispatch = useDispatch();
 
 	const handleSearch = (event: ChangeEvent<HTMLInputElement>): any => {
@@ -49,51 +48,43 @@ const useFilter = () => {
 	}, [dispatch]);
 
 	const handleNext = () => {
+		const nextIndex = (pagination.current_index || -1) + 1;
 		dispatch(
 			fetchContentsByFilter({
 				...filters,
-				currentIndex: (pagination.last_index || -1) + 1,
-				data,
-				//@ts-ignore
-				totalEntries: pagination.total_entries,
+				nextIndex: nextIndex,
+				lastIndex: pagination.last_index || 0,
+
+				totalEntries: pagination.total_entries || 0,
+				entriesList: pagination.entries_list || [],
 			})
 		);
 	};
 
 	const handlePrevious = () => {
-		if ((pagination.last_index || -1) > MAXIMUM_PAGINATION_DATA_AT_ONCE) {
-			const currentIndex = (pagination.last_index || 20) - MAXIMUM_PAGINATION_DATA_AT_ONCE * 2;
-			console.log({ previousPagination: pagination, currentIndex });
-			dispatch(
-				fetchContentsByFilter({
-					...filters,
-					currentIndex: currentIndex < 0 ? 0 : currentIndex + 1,
-					data,
-					//@ts-ignore
-					totalEntries: pagination.total_entries,
-				})
-			);
+		let currentIndex = pagination.last_index || 0;
+
+		if (currentIndex < 0) {
+			currentIndex = 0;
 		}
+
+		dispatch(
+			fetchContentsByFilter({
+				...filters,
+				totalEntries: pagination.total_entries || 0,
+				nextIndex: currentIndex,
+				entriesList: pagination.entries_list || [],
+			})
+		);
 	};
 
 	useComponentDidMount(() => {
-		if (filters.query !== initialQuery.current) {
-			initialQuery.current = filters.query;
-			dispatch(
-				fetchContentsByFilter({
-					...filters,
-					data,
-					currentIndex: 0,
-				})
-			);
-		} else {
-			dispatch(
-				fetchContentsByFilter({
-					...filters,
-					data,
-				})
-			);
-		}
+		dispatch(
+			fetchContentsByFilter({
+				...filters,
+				nextIndex: 0,
+			})
+		);
 	}, [filters]);
 
 	return {

@@ -1,12 +1,12 @@
 import { Template, TemplateCategory, TemplateDate, TemplateOrder } from 'app/api/types';
 import getActionString from 'app/utils/getActionString';
-import { GetFilteredDataParams } from 'app/utils/paginations';
-import { Pagination, ReducerStatus } from '../types';
+import { GetFilteredDataParams } from 'app/utils/pagination';
+import { NewPagintaion, ReducerStatus } from '../types';
 
 export interface ContentState {
 	status: ReducerStatus;
 	data: Array<Template>;
-	pagination: Pagination;
+	pagination: NewPagintaion;
 	filteredData: Array<Template>;
 }
 
