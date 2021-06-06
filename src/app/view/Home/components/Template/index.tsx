@@ -6,102 +6,12 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'app/redux/reducers';
 import { extractDescription, isReducerBusy } from 'app/utils/helpers';
 import { ContentContext } from '../../providers/ContentProvider';
-
-const card: Array<{
-	title: String;
-	description: String;
-}> = [
-	{
-		title: 'Alumni Membership Form Template',
-		description:
-			'Engage your alumni network better with this alumni registration form template. Embed this in your website ...',
-	},
-	{
-		title: 'Alumni Membership Form Template',
-		description:
-			'Engage your alumni network better with this alumni registration form template. Embed this in your website ...',
-	},
-	{
-		title: 'Alumni Membership Form Template',
-		description:
-			'Engage your alumni network better with this alumni registration form template. Embed this in your website ...',
-	},
-	{
-		title: 'Alumni Membership Form Template',
-		description:
-			'Engage your alumni network better with this alumni registration form template. Embed this in your website ...',
-	},
-	{
-		title: 'Alumni Membership Form Template',
-		description:
-			'Engage your alumni network better with this alumni registration form template. Embed this in your website ...',
-	},
-	{
-		title: 'Alumni Membership Form Template',
-		description:
-			'Engage your alumni network better with this alumni registration form template. Embed this in your website ...',
-	},
-	{
-		title: 'Alumni Membership Form Template',
-		description:
-			'Engage your alumni network better with this alumni registration form template. Embed this in your website ...',
-	},
-	{
-		title: 'Alumni Membership Form Template',
-		description:
-			'Engage your alumni network better with this alumni registration form template. Embed this in your website ...',
-	},
-	{
-		title: 'Alumni Membership Form Template',
-		description:
-			'Engage your alumni network better with this alumni registration form template. Embed this in your website ...',
-	},
-	{
-		title: 'Alumni Membership Form Template',
-		description:
-			'Engage your alumni network better with this alumni registration form template. Embed this in your website ...',
-	},
-	{
-		title: 'Alumni Membership Form Template',
-		description:
-			'Engage your alumni network better with this alumni registration form template. Embed this in your website ...',
-	},
-	{
-		title: 'Alumni Membership Form Template',
-		description:
-			'Engage your alumni network better with this alumni registration form template. Embed this in your website ...',
-	},
-	{
-		title: 'Alumni Membership Form Template',
-		description:
-			'Engage your alumni network better with this alumni registration form template. Embed this in your website ...',
-	},
-	{
-		title: 'Alumni Membership Form Template',
-		description:
-			'Engage your alumni network better with this alumni registration form template. Embed this in your website ...',
-	},
-	{
-		title: 'Alumni Membership Form Template',
-		description:
-			'Engage your alumni network better with this alumni registration form template. Embed this in your website ...',
-	},
-	{
-		title: 'Alumni Membership Form Template',
-		description:
-			'Engage your alumni network better with this alumni registration form template. Embed this in your website ...',
-	},
-	{
-		title: 'Alumni Membership Form Template',
-		description:
-			'Engage your alumni network better with this alumni registration form template. Embed this in your website ...',
-	},
-];
+import mockCard from 'app/assets/data/mock';
 
 const LoadingTemplate = () => {
 	return (
 		<>
-			{card.map(({ title, description }, index) => {
+			{mockCard.map(({ title, description }, index) => {
 				return (
 					<Card key={`${index}-${title}-${description}`}>
 						<TemplateStyles.TemplateCardLoading>
