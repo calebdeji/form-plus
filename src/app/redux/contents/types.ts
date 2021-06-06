@@ -8,6 +8,7 @@ export interface ContentState {
 	data: Array<Template>;
 	pagination: NewPagintaion;
 	filteredData: Array<Template>;
+	error?: string | null;
 }
 
 export const FETCH_ALL_CONTENTS = getActionString('fetch_all_contents');
