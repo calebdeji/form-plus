@@ -4,6 +4,7 @@ import api from 'app/api';
 import { FETCH_ALL_CONTENTS, FETCH_CONTENTS_BY_FILTER } from './types';
 import { GenericResponse } from 'app/api/types';
 import { getFilteredData, GetFilteredData } from 'app/utils/pagination';
+import getError from 'app/utils/getError';
 
 function* fetchAllContentsSaga() {
 	try {
@@ -14,7 +15,7 @@ function* fetchAllContentsSaga() {
 		});
 		yield put({ type: FETCH_ALL_CONTENTS.fulfilled, payload: { ...filteredData, data: data.data } });
 	} catch (error) {
-		const message = error.message;
+		const message = getError(error);
 		console.warn(`Error ${message}`);
 
 		yield put({ type: FETCH_ALL_CONTENTS.error, payload: message });
