@@ -1,6 +1,6 @@
 import { Template } from 'app/api/types';
 import { ReducerStatus } from 'app/redux/types';
-import { MAXIMUM_PAGINATION_DATA_AT_ONCE } from './paginations';
+import { MAXIMUM_PAGINATION_DATA_AT_ONCE } from './pagination';
 
 type ObjectType = {
 	[key: string]: any;

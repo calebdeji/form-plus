@@ -17,7 +17,7 @@ const Footer = () => {
 				Previous
 			</FooterStyles.NavigationButton>
 			<FooterStyles.NumberData>
-				<FooterStyles.NumberBox> {pagination.current_page} </FooterStyles.NumberBox>
+				<FooterStyles.NumberBox> {Math.ceil((pagination.last_index_in_entries || 10) / 10)} </FooterStyles.NumberBox>
 				<Text color="black200" size={18}>
 					of {getTotalPages(pagination.total_entries)}
 				</Text>

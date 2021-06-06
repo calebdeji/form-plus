@@ -17,6 +17,7 @@ interface SelectProps {
 	value?: string;
 	onChange?: (value: string) => void;
 	className?: string;
+	disabled?: boolean;
 }
 
 const Select = (props: SelectProps) => {
@@ -27,7 +28,9 @@ const Select = (props: SelectProps) => {
 	};
 
 	const toggleDropDown = () => {
-		setisDropDownVisible((prevState) => !prevState);
+		if (!Boolean(props.disabled)) {
+			setisDropDownVisible((prevState) => !prevState);
+		}
 	};
 
 	const getLabel = useCallback(() => {
@@ -40,13 +43,20 @@ const Select = (props: SelectProps) => {
 
 	const handleOnClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, value: string) => {
 		event.stopPropagation();
+
 		props.onChange?.(value);
+
 		closeDropDown();
 	};
 
 	return (
 		<ClickAwayListener onClickAway={closeDropDown}>
-			<SelectStyles.Select className={props.className || ''} onClick={toggleDropDown} tabIndex={-1}>
+			<SelectStyles.Select
+				className={props.className || ''}
+				disabled={props.disabled || false}
+				onClick={toggleDropDown}
+				tabIndex={-1}
+			>
 				{props.label && (
 					<Text as="legend" color="gray100" size={10}>
 						{props.label}

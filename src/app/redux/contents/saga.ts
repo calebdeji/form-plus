@@ -3,7 +3,7 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 import api from 'app/api';
 import { FETCH_ALL_CONTENTS, FETCH_CONTENTS_BY_FILTER } from './types';
 import { GenericResponse } from 'app/api/types';
-import { getFilteredData, GetFilteredData } from 'app/utils/paginations';
+import { getFilteredData, GetFilteredData } from 'app/utils/pagination';
 
 function* fetchAllContentsSaga() {
 	try {
