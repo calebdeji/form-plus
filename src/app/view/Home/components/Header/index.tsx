@@ -6,9 +6,17 @@ import Select from 'app/components/Select';
 import Text from 'app/components/Text';
 import { ContentContext } from '../../providers/ContentProvider';
 import HeaderStyles from './styles';
+import { useSelector } from 'react-redux';
+import { RootState } from 'app/redux/reducers';
+import { isReducerBusy } from 'app/utils/helpers';
 
 const HomeHeader = () => {
 	const contentContext = useContext(ContentContext);
+
+	const status = useSelector((state: RootState) => state.contentReducer.status);
+
+	const isReducerOperating = isReducerBusy(status);
+
 	return (
 		<HeaderStyles.Container>
 			<Search
@@ -29,6 +37,7 @@ const HomeHeader = () => {
 					]}
 					value={contentContext?.category as string}
 					onChange={(value) => contentContext?.handleChangeInCategory?.(value as TemplateCategory)}
+					disabled={isReducerOperating}
 				/>
 				<Select
 					className="filter-select"
@@ -40,6 +49,7 @@ const HomeHeader = () => {
 					]}
 					value={contentContext?.order as string}
 					onChange={(value) => contentContext?.handleChangeInOrder?.(value as TemplateOrder)}
+					disabled={isReducerOperating}
 				/>
 				<Select
 					className="filter-select"
@@ -51,6 +61,7 @@ const HomeHeader = () => {
 					]}
 					value={contentContext?.date as string}
 					onChange={(value) => contentContext?.handleChangeInDate?.(value as TemplateDate)}
+					disabled={isReducerOperating}
 				/>
 			</HeaderStyles.Filter>
 		</HeaderStyles.Container>

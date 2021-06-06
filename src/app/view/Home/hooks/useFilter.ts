@@ -5,7 +5,7 @@ import { TemplateCategory, TemplateDate, TemplateOrder } from 'app/api/types';
 import useComponentDidMount from 'app/hooks/useComponentDidMount';
 import { fetchAllContents, fetchContentsByFilter } from 'app/redux/contents/actions';
 import { RootState } from 'app/redux/reducers';
-import { GetFilteredDataParams } from 'app/utils/paginations';
+import { GetFilteredDataParams, MAXIMUM_PAGINATION_DATA_AT_ONCE } from 'app/utils/paginations';
 
 export type Filters = Omit<GetFilteredDataParams, 'data' | 'currentIndex' | 'totalEntries'> & {
 	query: string;
@@ -61,15 +61,19 @@ const useFilter = () => {
 	};
 
 	const handlePrevious = () => {
-		dispatch(
-			fetchContentsByFilter({
-				...filters,
-				currentIndex: (pagination.last_index || 10) - 10,
-				data,
-				//@ts-ignore
-				totalEntries: pagination.total_entries,
-			})
-		);
+		if ((pagination.last_index || -1) > MAXIMUM_PAGINATION_DATA_AT_ONCE) {
+			const currentIndex = (pagination.last_index || 20) - MAXIMUM_PAGINATION_DATA_AT_ONCE * 2;
+			console.log({ previousPagination: pagination, currentIndex });
+			dispatch(
+				fetchContentsByFilter({
+					...filters,
+					currentIndex: currentIndex < 0 ? 0 : currentIndex + 1,
+					data,
+					//@ts-ignore
+					totalEntries: pagination.total_entries,
+				})
+			);
+		}
 	};
 
 	useComponentDidMount(() => {
@@ -79,6 +83,7 @@ const useFilter = () => {
 				fetchContentsByFilter({
 					...filters,
 					data,
+					currentIndex: 0,
 				})
 			);
 		} else {

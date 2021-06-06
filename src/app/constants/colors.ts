@@ -4,6 +4,7 @@ const gray4 = '#BDBDBD';
 
 //white
 const white100 = '#FFFFFF';
+const fadedWhite = 'rgba(0,0,0,0.05)';
 
 //black
 const black100 = '#000000';
@@ -32,6 +33,7 @@ const colors: { [key: string]: string } = {
 	neutral7,
 	shade6,
 	white100,
+	fadedWhite,
 	orange300,
 	fadedBlack,
 };

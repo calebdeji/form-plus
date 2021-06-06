@@ -13,6 +13,11 @@ const Select = styled.fieldset`
 	margin: 0;
 	padding: 0 15px 0 23px;
 
+	&:disabled {
+		border-color: ${colors.fadedWhite};
+		background-color: ${colors.fadedWhite};
+	}
+
 	.icon {
 		transition: transform ease-in 200ms;
 	}
