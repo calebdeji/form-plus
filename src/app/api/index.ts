@@ -1,16 +1,8 @@
-// import request from './request';
-// import { GenericResponse, Template } from './types';
-import mockResponse from 'app/assets/data/mock';
+import request from './request';
+import { GenericResponse, Template } from './types';
 
 const fetchAllContents = async () => {
-	// return await request.get<GenericResponse<Array<Template>>>('');
-	return await new Promise((resolve) => {
-		setTimeout(() => {
-			resolve({
-				data: mockResponse,
-			});
-		}, 2000);
-	});
+	return await request.get<GenericResponse<Array<Template>>>('');
 };
 
 const api = {
