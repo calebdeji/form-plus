@@ -107,7 +107,7 @@ const TemplateCardLoading = styled.div`
 
 const TemplateCardCollections = styled.div`
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(358px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(358px, 1fr));
 	column-gap: 67px;
 	row-gap: 70px;
 

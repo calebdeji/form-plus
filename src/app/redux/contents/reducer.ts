@@ -14,6 +14,7 @@ const contentReducer = (state = initState, action: GenericAction): ContentState 
 		case FETCH_CONTENTS_BY_FILTER.pending:
 			return {
 				...state,
+				error: null,
 				status: 'fetching',
 			};
 
@@ -22,6 +23,7 @@ const contentReducer = (state = initState, action: GenericAction): ContentState 
 			return {
 				...initState,
 				status: 'error',
+				error: action.payload,
 			};
 
 		case FETCH_ALL_CONTENTS.fulfilled: {
@@ -31,6 +33,7 @@ const contentReducer = (state = initState, action: GenericAction): ContentState 
 				status: 'fetched',
 				filteredData: action.payload.filteredData,
 				pagination: action.payload.pagination,
+				error: null,
 			};
 		}
 
@@ -40,6 +43,7 @@ const contentReducer = (state = initState, action: GenericAction): ContentState 
 				status: 'fetched',
 				filteredData: action.payload.filteredData,
 				pagination: action.payload.pagination,
+				error: null,
 			};
 		}
 
