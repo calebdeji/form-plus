@@ -48,11 +48,11 @@ const getFilteredDataByQueryAndCategory = (
 		} else {
 			if (!isEntityEmpty(query)) {
 				if (category !== 'all') {
-					if (template.name.indexOf(query) !== -1 && template.category.indexOf(category) !== -1) {
+					if (template.name.indexOf(query.toLowerCase()) !== -1 && template.category.indexOf(category) !== -1) {
 						pushDataToFilteredList(template);
 					}
 				} else {
-					if (template.name.indexOf(query) !== -1) {
+					if (template.name.indexOf(query.toLowerCase()) !== -1) {
 						pushDataToFilteredList(template);
 					}
 				}
