@@ -5,24 +5,51 @@ import FooterStyles from './styles';
 import { ContentContext } from '../../providers/ContentProvider';
 import { useSelector } from 'react-redux';
 import { RootState } from 'app/redux/reducers';
-import { getTotalPages } from 'app/utils/helpers';
+import { getCurrentPage, getTotalPages, isEntityEmpty, isReducerBusy } from 'app/utils/helpers';
 
 const Footer = () => {
 	const contentContext = useContext(ContentContext);
-	const pagination = useSelector((state: RootState) => state.contentReducer.pagination);
+	const { pagination, status, filteredData } = useSelector((state: RootState) => state.contentReducer);
+
+	const isReducerFetching = isReducerBusy(status);
+	const isDataEmpty = isEntityEmpty(filteredData);
 
 	return (
 		<FooterStyles.Container>
-			<FooterStyles.NavigationButton onClick={() => contentContext?.handlePrevious()}>
+			<FooterStyles.NavigationButton
+				disabled={isReducerFetching || isDataEmpty}
+				onClick={() => contentContext?.handlePrevious()}
+			>
 				Previous
 			</FooterStyles.NavigationButton>
 			<FooterStyles.NumberData>
-				<FooterStyles.NumberBox> {Math.ceil((pagination.last_index_in_entries || 10) / 10)} </FooterStyles.NumberBox>
-				<Text color="black200" size={18}>
-					of {getTotalPages(pagination.total_entries)}
-				</Text>
+				{isReducerFetching ? (
+					<Text color="opaqueBlack" size={18}>
+						Loading...
+					</Text>
+				) : (
+					<>
+						{isDataEmpty ? (
+							<Text color="opaqueBlack" size={18}>
+								List is empty
+							</Text>
+						) : (
+							<>
+								<FooterStyles.NumberBox>{getCurrentPage(pagination.last_index_in_entries)}</FooterStyles.NumberBox>
+								<Text color="black200" size={18}>
+									of {getTotalPages(pagination.total_entries)}
+								</Text>
+							</>
+						)}
+					</>
+				)}
 			</FooterStyles.NumberData>
-			<FooterStyles.NavigationButton onClick={() => contentContext?.handleNext()}> Next </FooterStyles.NavigationButton>
+			<FooterStyles.NavigationButton
+				disabled={isReducerFetching || isDataEmpty}
+				onClick={() => contentContext?.handleNext()}
+			>
+				Next
+			</FooterStyles.NavigationButton>
 		</FooterStyles.Container>
 	);
 };

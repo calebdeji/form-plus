@@ -4,7 +4,7 @@ import Text from 'app/components/Text';
 import Card from 'app/components/Card';
 import { useSelector } from 'react-redux';
 import { RootState } from 'app/redux/reducers';
-import { extractDescription, isReducerBusy } from 'app/utils/helpers';
+import { extractDescription, isEntityEmpty, isReducerBusy } from 'app/utils/helpers';
 import { ContentContext } from '../../providers/ContentProvider';
 import mockCard from 'app/assets/data/mock';
 
@@ -29,6 +29,9 @@ const Template = () => {
 	const { status, filteredData, pagination } = useSelector((state: RootState) => state.contentReducer);
 	const contentContext = useContext(ContentContext);
 
+	const isReducerFetching = isReducerBusy(status);
+	const isFilteredDataEmpty = isEntityEmpty(filteredData);
+
 	return (
 		<TemplateStyles.Container>
 			<TemplateStyles.TemplateCategoryAndNumber>
@@ -36,32 +39,40 @@ const Template = () => {
 					{contentContext?.category || 'All'} Templates
 				</Text>
 				<Text color="gray200" size={14}>
-					{pagination.total_entries || ''} templates
+					{isReducerFetching ? 'Loading ...' : `${pagination.total_entries || 0} templates`}
 				</Text>
 			</TemplateStyles.TemplateCategoryAndNumber>
 			<TemplateStyles.TemplateCardCollections>
 				{isReducerBusy(status) ? (
 					<LoadingTemplate />
 				) : (
-					filteredData.map(({ name, description }, index) => {
-						return (
-							<Card key={`${index}-${name}-${description}`}>
-								<TemplateStyles.TemplateCard>
-									<div className="upper">
-										<Text color="black300" size={24} lineHeight={30.36} weight={500}>
-											{name}
-										</Text>
-										<Text className="description" color="neutral2" lineHeight={16.94}>
-											{extractDescription(description)}
-										</Text>
-									</div>
-									<div className="lower">
-										<Text color="shade6"> Use Template </Text>
-									</div>
-								</TemplateStyles.TemplateCard>
-							</Card>
-						);
-					})
+					<>
+						{isFilteredDataEmpty ? (
+							<TemplateStyles.EmptyData>
+								<Text align="center"> No template fits your search query and filter, try with other values</Text>
+							</TemplateStyles.EmptyData>
+						) : (
+							filteredData.map(({ name, description }, index) => {
+								return (
+									<Card key={`${index}-${name}-${description}`}>
+										<TemplateStyles.TemplateCard>
+											<div className="upper">
+												<Text color="black300" size={24} lineHeight={30.36} weight={500}>
+													{name}
+												</Text>
+												<Text className="description" color="neutral2" lineHeight={16.94}>
+													{extractDescription(description)}
+												</Text>
+											</div>
+											<div className="lower">
+												<Text color="shade6"> Use Template </Text>
+											</div>
+										</TemplateStyles.TemplateCard>
+									</Card>
+								);
+							})
+						)}
+					</>
 				)}
 			</TemplateStyles.TemplateCardCollections>
 		</TemplateStyles.Container>

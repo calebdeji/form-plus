@@ -132,13 +132,14 @@ export const getFilteredData = async ({ nextIndex = 0, ...rest }: GetFilteredDat
 			lastIndexInEntries = index;
 		}
 	}
+	const currentIndex = data.indexOf(filteredListByQueryAndCategory[filteredListByQueryAndCategory.length - 1]);
 
 	const pagination: NewPagintaion = {
 		total_entries: isTotalEntriesRecorder ? rest.totalEntries || 0 : totalEntries || 0,
-		current_index: data.indexOf(filteredListByQueryAndCategory[filteredListByQueryAndCategory.length - 1]),
+		current_index: currentIndex,
 		last_index_in_entries: lastIndexInEntries,
 		entries_list: !isEntityEmpty(rest.entriesList || []) ? (rest.entriesList as []) : (entriesList as []),
-		last_index: rest.lastIndex || 0,
+		last_index: nextIndex,
 	};
 
 	return {

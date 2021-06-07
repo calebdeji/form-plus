@@ -66,6 +66,14 @@ const TemplateCardLowerLoadingAnimation = keyframes`
   }
 `;
 
+const EmptyData = styled.div`
+	width: calc(100vw - 20vw);
+	height: 200px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
+
 const TemplateCardLoading = styled.div`
 	.upper {
 		height: 140px;
@@ -123,6 +131,7 @@ const TemplateStyles = {
 	TemplateCategoryAndNumber,
 	Container,
 	TemplateCardLoading,
+	EmptyData,
 };
 
 export default TemplateStyles;

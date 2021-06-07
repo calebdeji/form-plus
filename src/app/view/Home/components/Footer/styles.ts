@@ -31,6 +31,11 @@ const NavigationButton = styled.button`
 	color: ${colors.black200};
 	font-size: 18px;
 	font-weight: 500;
+
+	&:disabled {
+		color: ${colors.opaqueBlack};
+		cursor: auto;
+	}
 `;
 
 const FooterStyles = {
