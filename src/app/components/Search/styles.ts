@@ -27,6 +27,10 @@ const Search = styled.input`
 	&::placeholder {
 		color: ${colors.gray100};
 	}
+	&:read-only {
+		cursor: auto;
+		background-color: ${colors.fadedWhite};
+	}
 `;
 
 const SearchStyle = {

@@ -63,6 +63,15 @@ export const getTotalPages = (totalEntries?: number) => {
 	return Math.ceil(totalEntries / MAXIMUM_PAGINATION_DATA_AT_ONCE);
 };
 
+export const getCurrentPage = (entry?: number) => {
+	let entryData = entry;
+
+	if (!entryData) return 1;
+	if (entryData / MAXIMUM_PAGINATION_DATA_AT_ONCE <= 0) return 1;
+	if (entryData % 10 === 0) entryData = entryData + 1;
+	return Math.ceil(entryData / MAXIMUM_PAGINATION_DATA_AT_ONCE);
+};
+
 export const isReducerBusy = (status: ReducerStatus) => {
 	switch (status) {
 		case 'fetching':

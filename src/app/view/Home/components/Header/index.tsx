@@ -23,6 +23,9 @@ const HomeHeader = () => {
 				placeholder="Search Templates"
 				value={contentContext?.query || ''}
 				onChange={(event) => contentContext?.handleSearch(event)}
+				readOnly={isReducerOperating}
+				autoFocus
+				key="templatesearch"
 			/>
 			<HeaderStyles.Filter>
 				<Text color="gray200"> Sort By: </Text>
