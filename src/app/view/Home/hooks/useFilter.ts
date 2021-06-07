@@ -70,8 +70,6 @@ const useFilter = () => {
 					entriesList: pagination.entries_list || [],
 				})
 			);
-		} else {
-			console.log('disabled');
 		}
 	};
 
@@ -100,14 +98,6 @@ const useFilter = () => {
 			})
 		);
 	};
-
-	useEffect(() => {
-		console.log({ previousIndexes });
-	}, [previousIndexes]);
-
-	useEffect(() => {
-		console.log({ pagination });
-	}, [pagination]);
 
 	useComponentDidMount(() => {
 		if (isEntityEmpty(data)) {
